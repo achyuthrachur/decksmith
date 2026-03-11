@@ -1,0 +1,27 @@
+{
+  "name": "decksmith",
+  "version": "1.0.0",
+  "description": "MCP server + skills sync CLI for Crowe-branded HTML decks. Works with Claude Code, Codex CLI, Cursor, and any stdio MCP client.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "decksmith": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build":   "tsc",
+    "dev":     "tsc --watch",
+    "start":   "node dist/cli/index.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript":  "^5.4.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

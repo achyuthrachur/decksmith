@@ -1,0 +1,3 @@
+name: deployment
+description: Codex agent interface for the deployment skill
+version: "1.0"

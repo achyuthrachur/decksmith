@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deck Builder"
+  short_description: "Crowe-branded HTML presentation deck builder"
+  default_prompt: "Use $deck-builder to create a new Crowe-branded HTML presentation deck. Run the interview first before scaffolding anything."
