@@ -1,1 +1,0 @@
-{"version":3,"file":"quality-checklist.d.ts","sourceRoot":"","sources":["../../src/data/quality-checklist.ts"],"names":[],"mappings":"AAEA,MAAM,MAAM,aAAa,GAAG;IAC1B,EAAE,EAAE,MAAM,CAAA;IACV,QAAQ,EAAE,OAAO,GAAG,SAAS,GAAG,WAAW,GAAG,aAAa,CAAA;IAC3D,WAAW,EAAE,MAAM,CAAA;CACpB,CAAA;AAED,eAAO,MAAM,gBAAgB,EAAE,aAAa,EA4B3C,CAAA"}
