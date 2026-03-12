@@ -14,10 +14,11 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build":   "tsc",
-    "dev":     "tsc --watch",
-    "start":   "node dist/cli/index.js",
-    "prepare": "npm run build"
+    "build":       "tsc",
+    "dev":         "tsc --watch",
+    "start":       "node dist/cli/index.js",
+    "prepare":     "echo skip",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
