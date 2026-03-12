@@ -115,8 +115,8 @@ function registerCodex(force: boolean): void {
     } else if (existing.includes('[mcp_servers.decksmith]') && force) {
       // Replace existing block
       const updated = existing.replace(
-        /\[mcp_servers\.decksmith\][^\[]*/,
-        mcpBlock
+        /\[mcp_servers\.decksmith\][\s\S]*?(?=\n\[|\s*$)/,
+        mcpBlock.trimEnd()
       )
       fs.writeFileSync(CODEX_CONFIG, updated, 'utf8')
       console.log(`  ✓ MCP server   updated in ${CODEX_CONFIG}`)
