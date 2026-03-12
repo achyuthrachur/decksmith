@@ -8,11 +8,14 @@ Works with Claude Code, Codex CLI, Cursor, and any stdio MCP client.
 ## Install (one-time, global)
 
 ```bash
-npm install -g github:achyuthrachur/decksmith
+git clone https://github.com/achyuthrachur/decksmith.git
+cd decksmith
+npm install
+npm install -g .
 decksmith --version
 ```
 
-> The `dist/` folder is pre-built in the repo — no compile step needed on install.
+> `npm install -g .` from the local clone is required — `npm install -g github:...` is unreliable on Windows due to npm's tar extraction behavior with compiled JS files.
 
 ---
 
