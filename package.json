@@ -7,11 +7,17 @@
   "bin": {
     "decksmith": "dist/cli/index.js"
   },
+  "files": [
+    "dist",
+    "skills",
+    "src",
+    "tsconfig.json"
+  ],
   "scripts": {
     "build":   "tsc",
     "dev":     "tsc --watch",
     "start":   "node dist/cli/index.js",
-    "prepare": "echo 'dist/ is pre-built — run npm run build to rebuild'"
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
