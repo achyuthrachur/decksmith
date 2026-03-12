@@ -114,9 +114,11 @@ function registerCodex(force: boolean): void {
       console.log('  ~ MCP server   already registered (use --force to overwrite)')
     } else if (existing.includes('[mcp_servers.decksmith]') && force) {
       // Replace existing block
+      // Match the block header + all following non-section lines
+      // Stops at next [section] header (line starting with [a-zA-Z) but not at args = []
       const updated = existing.replace(
-        /\[mcp_servers\.decksmith\][\s\S]*?(?=\n\[|\s*$)/,
-        mcpBlock.trimEnd()
+        /\[mcp_servers\.decksmith\](?:\n(?!\[[a-zA-Z_]).*)*\n*/,
+        mcpBlock
       )
       fs.writeFileSync(CODEX_CONFIG, updated, 'utf8')
       console.log(`  ✓ MCP server   updated in ${CODEX_CONFIG}`)
