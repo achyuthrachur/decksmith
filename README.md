@@ -18,70 +18,37 @@ decksmith --version
 
 ## Setup for Claude Code
 
-**Step 1 — Sync skills** (loads deck-builder + 7 other skills into Claude's context):
 ```bash
+decksmith register --claude
 decksmith skills sync --claude
 ```
-Installs to: `AI Coding Projects/.claude/skills/`
-Then restart Claude Code.
 
-**Step 2 — Register MCP server** (gives Claude the `deck_*` tools and `crowe://` resources):
+Restart Claude Code. Then type `/deck` in any session to start a new deck project.
 
-Global — add to `~/.claude.json`:
-```json
-{
-  "mcpServers": {
-    "decksmith": { "command": "decksmith" }
-  }
-}
-```
-
-Or per-project — add to `.claude/settings.json` in the project root:
-```json
-{
-  "mcpServers": {
-    "decksmith": { "command": "decksmith" }
-  }
-}
-```
-
-Then restart Claude Code.
+`register` does two things automatically:
+- Adds `decksmith` to `~/.claude.json` as a global MCP server
+- Writes `~/.claude/commands/deck.md` — the `/deck` slash command
 
 ---
 
 ## Setup for Codex CLI
 
-**Step 1 — Sync skills** (loads deck-builder + 7 other skills into Codex's context):
 ```bash
+decksmith register --codex
 decksmith skills sync --codex
 ```
-Installs to: `~/.codex/skills/`
-Includes `SKILL.md` + `agents/openai.yaml` per skill.
-Then restart Codex.
 
-**Step 2 — Register MCP server** (gives Codex the `deck_*` tools and `crowe://` resources):
+Restart Codex. Then reference `@instructions/deck.md` or paste the kickoff prompt to begin.
 
-Global — add to `~/.codex/config.toml`:
-```toml
-[mcp_servers.decksmith]
-command = "decksmith"
-args = []
-```
-
-Or per-project — add to `.codex/config.toml` in the project root:
-```toml
-[mcp_servers.decksmith]
-command = "decksmith"
-args = []
-```
-
-Then restart Codex.
+`register` does two things automatically:
+- Adds `[mcp_servers.decksmith]` to `~/.codex/config.toml`
+- Writes `~/.codex/instructions/deck.md` — the pre-written kickoff prompt
 
 ---
 
 ## Setup for Cursor
 
-Cursor uses MCP only (no skills system). Add to `.cursor/mcp.json`:
+Cursor uses MCP only (no skills system). Add manually to `.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
@@ -163,12 +130,11 @@ npx @modelcontextprotocol/inspector decksmith
 
 ## Start a new deck
 
-Once registered, use this kickoff with your agent:
+**Claude Code:** type `/deck` — the kickoff prompt autofills and the interview begins immediately.
 
-```
-Call deck_get_kickoff_prompt (mode: "full", agent: "claude-code" or "codex").
-Follow the instructions it returns.
-```
+**Codex:** reference `@instructions/deck.md` at the start of a session.
+
+Both routes call `deck_get_kickoff_prompt` → `deck_interview` automatically and walk through the 5-block interview before touching any files.
 
 ---
 
