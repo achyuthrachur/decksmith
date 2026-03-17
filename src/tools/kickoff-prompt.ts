@@ -46,13 +46,16 @@ export async function runKickoffPrompt(input: KickoffPromptInput): Promise<strin
     full: `
 ## MODE: Full Build (new deck from scratch)
 
-**Phase sequence:**
-1. Run the \`deck_interview\` prompt (mode: "full") — complete all 5 blocks before touching any file
-2. Produce the 4 asset elicitation documents (COMPONENTS-NEEDED, LOGOS-NEEDED, IMAGE-PROMPTS, CONTENT-LAYER)
-3. Wait for confirmation that assets are placed
-4. Run \`deck_scaffold\` to create the project structure
-5. Build slide components one at a time — start with HeroSlide, validate it before moving on
-6. Run \`deck_quality_check\` before declaring done
+**Preferred workflow — DECK-BRIEF.md:**
+1. Check if \`DECK-BRIEF.md\` exists at the project root
+   - **If yes:** Read it, extract answers from \`> ANSWER:\` fields, synthesize a DECK PLAN, confirm with user, then jump to step 3
+   - **If no:** Run \`deck_interview\` (mode: "questionnaire") → output the template → wait for user to drop \`DECK-BRIEF.md\` and say "ready"
+2. Confirm the DECK PLAN before touching any file
+3. Produce the 4 asset elicitation documents (COMPONENTS-NEEDED, LOGOS-NEEDED, IMAGE-PROMPTS, CONTENT-LAYER)
+4. Wait for confirmation that assets are placed
+5. Run \`deck_scaffold\` to create the project structure
+6. Build slide components one at a time — start with HeroSlide, validate it before moving on
+7. Run \`deck_quality_check\` before declaring done
 
 **Critical constraints:**
 - Zero hardcoded content strings in JSX — all content from \`src/data/slides.ts\`
