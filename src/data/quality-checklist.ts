@@ -34,4 +34,14 @@ export const qualityChecklist: ChecklistItem[] = [
   { id: 'perf-filesize',       category: 'performance', description: 'File size < 50MB (audit for uncompressed images if over)' },
   { id: 'perf-first-slide',    category: 'performance', description: 'First slide renders immediately' },
   { id: 'perf-transitions',    category: 'performance', description: 'Slide transitions < 400ms' },
+
+  // Interactive & Visualization (v20 patterns)
+  { id: 'viz-chart-height',    category: 'technical',   description: 'Every Chart.js canvas is inside a position:relative height-constrained div; options include maintainAspectRatio:false' },
+  { id: 'viz-chart-data',      category: 'content',     description: 'Charts show only metrics explicitly specified in interview — no baseline/comparison bars added without instruction' },
+  { id: 'viz-chart-guard',     category: 'technical',   description: 'Chart initialization is guarded against re-render (ctx._ci flag or useRef check)' },
+  { id: 'viz-chart-delay',     category: 'technical',   description: 'Charts inside animated panels delay render until panel animation completes (≥ animation duration ms)' },
+  { id: 'int-card-style',      category: 'brand',       description: 'All cards in the same list/grid have identical default border and background — no single card visually differentiated by default' },
+  { id: 'int-shimmer-hover',   category: 'brand',       description: 'Shimmer / border-beam / glow effects are hover-only (opacity:0 default, opacity:1 on :hover) — never always-on on any individual card' },
+  { id: 'int-active-style',    category: 'brand',       description: 'Only the ACTIVE/SELECTED card gets an accent-colored border; all others revert to default immediately' },
+  { id: 'int-spec-match',      category: 'content',     description: 'Every interactive slide behavior matches the behavioral spec written during interview (trigger, layout change, content, dismiss)' },
 ]

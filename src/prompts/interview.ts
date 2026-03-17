@@ -90,7 +90,27 @@ Now let's figure out the UI.
      particle/aurora background, animated beam/line connectors)
 
 14. Any slides that need to feel "interactive" in the browser?
-    (tabs, hover states, expandable sections)
+    For EACH interactive element, write a behavioral spec:
+    - What triggers the interaction (click? hover?)
+    - What layout change happens? (e.g., "cards collapse into a left column,
+      detail panel slides in from the right at 62% width")
+    - What content appears in the expanded/secondary state?
+    - How does the user close or dismiss it?
+    Be precise — vague answers here cause the most revision rounds.
+
+    Common interactive patterns (name the one you want or describe your own):
+    - Two-panel split: cards collapse left (~36%), detail panel slides in right (~62%)
+    - In-card expand: clicked card expands in place, pushing others down
+    - Tab panel: left nav tabs, content pane on the right
+    - Drawer: side panel overlays the slide content
+
+15. For each data visualization (chart, graph, table) in the deck, specify:
+    - Chart type (bar, doughnut, line, etc.)
+    - Metric name(s) shown on the chart
+    - The exact data values or ranges
+    - Whether to show comparison/baseline data (e.g., "Current vs Target")
+      — if you do NOT mention a baseline here, none will be added.
+    Example: "Doughnut showing 70% proposals with AI — single segment, no comparison bar."
 \`\`\`
 `.trim()
 

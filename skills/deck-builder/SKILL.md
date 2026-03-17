@@ -59,3 +59,23 @@ and one dominant motion strategy. Never mix patterns.
 
 **Quality gate:** Run deck_quality_check before declaring done.
 Every item in the checklist must pass. See DECK-SKILL.md Phase 4.
+
+---
+
+## Implementation Rules (avoid the common revision cycles)
+
+**Interactive slides:** Write a behavioral spec FIRST (trigger, layout change, content, dismiss).
+The two-panel split is the default pattern: cards collapse into left ~36%, detail panel at right ~62%.
+
+**Charts:** Always `maintainAspectRatio: false` + height-constrained container. Show ONLY the
+metrics from the spec — no "Current vs Target" bars unless explicitly requested. Guard against
+re-initialization. Delay render if chart is inside an animated panel (≥ animation duration ms).
+
+**Card lists:** All cards have identical default border/bg. Only the active card gets an accent
+border. Shimmer/glow/border-beam = hover-only (`opacity:0` default, `opacity:1` on `:hover`).
+
+**Font sizing:** Start generous. `clamp(14px,1.35vw,17px)` body, 20–24px card padding.
+Tighten in one pass if needed — opening up tight text takes 3–4 rounds.
+
+**CSS specificity:** Before adding a new rule for any selector, search for existing rules
+targeting the same selector. Update in place — never add a second block.

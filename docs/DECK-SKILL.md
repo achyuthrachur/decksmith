@@ -480,6 +480,104 @@ consistently. Never use all patterns in one deck.
 
 ---
 
+## PHASE 3B — IMPLEMENTATION RULES
+
+These rules come directly from patterns that caused repeated revision cycles. Apply them unconditionally, before building any component.
+
+---
+
+### Interactive Slide Pattern: Two-Panel Split
+
+The most common interactive pattern: a card grid that collapses into a narrow left column when a card is clicked, with a detail panel sliding in from the right.
+
+**Layout structure:**
+```tsx
+// Default: cards fill full width
+// On card click: left col narrows, detail panel expands
+<div id="sN-goals-wrapper" style={{ display:'flex', gap:16, height:'100%' }}>
+  <div id="sN-card-col">   {/* 100% → 36% on open */}
+    {cards.map(card => <GoalCard key={card.id} ... />)}
+  </div>
+  <div id="sN-detail-panel"> {/* 0 → 62% on open */}
+    <DetailContent cardId={activeCardId} />
+  </div>
+</div>
+```
+
+**Rules:**
+- `gridTemplateColumns` changes (if using CSS grid) must be direct style assignments, not animation tweens — browsers cannot interpolate `repeat(3,1fr)` ↔ `1fr`
+- Capture `panelAlreadyOpen` before updating active state; delay chart render on first open:
+  ```ts
+  const panelAlreadyOpen = !!activeCardId
+  setActiveCardId(cardId)
+  setTimeout(() => renderChart(cardId), panelAlreadyOpen ? 0 : 400)
+  ```
+- Active card: accent-colored border only. All other cards: identical white/subtle border. Never give a single card in the list a visually distinct default state.
+
+---
+
+### Chart Rules
+
+```tsx
+// 1. Wrap chart canvas in an explicit height container — never let Chart.js size itself
+<div style={{ position:'relative', height:180, width:'100%' }}>
+  <canvas ref={chartRef} style={{ position:'absolute', inset:0 }} />
+</div>
+
+// 2. Always set maintainAspectRatio: false when chart is in a constrained container
+options: { responsive: true, maintainAspectRatio: false, cutout: '55%', ... }
+
+// 3. Guard against re-initialization
+if (canvasRef.current?._ci) return
+const chart = new Chart(canvas, config)
+canvas._ci = true  // set after creation
+
+// 4. Delay chart render if it's inside a panel that has an open animation
+// Chart.js cannot measure a zero-width canvas
+const panelAlreadyOpen = !!activeCardId
+setTimeout(() => initChart(cardId), panelAlreadyOpen ? 0 : animationDurationMs)
+```
+
+**Data rule:** Show ONLY the metrics explicitly listed in the interview spec. Do NOT add a "Current (est.)" or baseline bar unless the user specifically asked for a before/after comparison. A single target metric = a single segment or single bar.
+
+---
+
+### Card Styling Rules
+
+- **All cards in the same list must have identical default border and background.** If the user hasn't asked for visual differentiation between specific cards, they all look the same.
+- **Shimmer / border-beam / glow effects: hover-only.** Default opacity is 0. Apply via:
+  ```css
+  .card::after { opacity: 0; transition: opacity 0.3s; }
+  .card:hover::after { opacity: 1; }
+  ```
+  Never apply a shimmer unconditionally to a single card in a list while others don't have it.
+- **Only the ACTIVE/SELECTED card gets an accent-colored border.** All non-active cards revert to the default subtle border immediately on selection change.
+
+---
+
+### Font & Spacing — Start Generous
+
+It's always faster to tighten spacing than to open it up. On first pass:
+
+- Body text: `clamp(14px, 1.35vw, 17px)` — not 11–12px
+- Card padding: `20–24px` default. Never below `16px` without explicit instruction.
+- Table cells: `padding: 9px 13px` minimum
+- Line height: `1.4–1.55` for readable density
+- Heading: `clamp(24px, 2.6vw, 40px)` for secondary headings
+
+If text is too large, one round to tighten it is acceptable. If text is too small, it typically takes 3–4 rounds of "just a bit bigger" to reach the right size.
+
+---
+
+### CSS Specificity
+
+- Before adding a new CSS rule for a selector, search the entire codebase/file for that selector
+- If existing rules already target the same selector, update them in place — never add a second block
+- Higher-specificity rules (`#slideId .class`) override generic ones (`.class`) regardless of source order
+- When a component has both a scoped rule and an unscoped rule targeting the same element, you must update BOTH
+
+---
+
 ## PHASE 4 — QUALITY CHECKLIST
 
 ### Brand & Design

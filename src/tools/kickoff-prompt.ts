@@ -59,6 +59,20 @@ export async function runKickoffPrompt(input: KickoffPromptInput): Promise<strin
 - Token values must match empower-deck v3.3 (read \`crowe://design-tokens\` for reference)
 - Pick ONE animation pattern and execute it consistently — never mix 3+ patterns
 - Every \`.ts/.tsx\` file must be valid TypeScript — no \`any\` types, no placeholder comments
+
+**Before building any interactive slide:**
+- Write a behavioral spec in DESIGN.md: trigger → layout change → content → dismiss
+- Do not choose an interaction pattern on your own — use exactly what was specified
+
+**Chart rules (apply before touching any visualization):**
+- Every Chart.js canvas must be inside a \`position:relative; height:Npx\` container with \`maintainAspectRatio:false\`
+- Show ONLY data explicitly listed in the spec — no baseline/comparison bars by default
+- Guard against re-initialization; delay render if chart lives inside an animated panel
+
+**Card & animation rules:**
+- Start font sizes generous (\`clamp(14px,1.35vw,17px)\` body, \`20–24px\` card padding) — tighten later if needed
+- All cards in the same list: identical default border/bg. Only the active card gets an accent border.
+- Shimmer/glow/border-beam: \`opacity:0\` default, \`opacity:1\` on \`:hover\` only — never always-on
 `.trim(),
 
     content_only: `
