@@ -1,3 +1,46 @@
 node_modules/
 dist/
 *.log
+
+# Test Project — keep only the final v21 deck + essential config
+Test Project/node_modules/
+Test Project/dist/
+Test Project/.playwright-*/
+Test Project/.codex/
+Test Project/New Images/
+Test Project/Image *.png
+Test Project/Crowe-AI-Strategy-Presentation (Animated*
+Test Project/Crowe-AI-Strategy-Presentation (Revised).html
+Test Project/Crowe-AI-Strategy-Presentation (Revised-v20).html
+Test Project/Crowe-AI-Strategy-Presentation (Revised-v22).html
+Test Project/Crowe-AI-Strategy-Presentation (Revised-v23).html
+Test Project/Crowe-AI-Strategy-Presentation.html
+Test Project/Crowe-Consulting-AI-Strategy-Standalone-*
+Test Project/*.bak
+Test Project/*.v4bak
+Test Project/fix-round*.cjs
+Test Project/fix-*.cjs
+Test Project/bake-images.cjs
+Test Project/S12_CARD_INTERACTION*.md
+Test Project/IMAGE-PROMPTS*.md
+Test Project/LOGOS-NEEDED.md
+Test Project/OVERNIGHT-DECK-PRD.md
+Test Project/PHASE-2.md
+Test Project/COMPONENTS-NEEDED.md
+Test Project/COMPONENTS-INSTALL.md
+Test Project/DECK-TEMPLATE-GUIDE.md
+Test Project/Crowe Labs Screenshot.png
+Test Project/public/
+Test Project/src/
+Test Project/scripts/
+Test Project/tests/
+Test Project/playwright.config.*
+Test Project/postcss.config.*
+Test Project/tailwind.config.*
+Test Project/vite.config.*
+Test Project/tsconfig.*
+Test Project/index.html
+Test Project/package-lock.json
+
+# Docs
+*.docx
