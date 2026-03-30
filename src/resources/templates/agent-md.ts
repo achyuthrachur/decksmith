@@ -166,6 +166,8 @@ npx tsx scripts/export-pdf.ts   # export PDF
 - Do not make the deck look like the last deck — vary layouts and motion patterns
 - Do not use Inter as a display font
 - Do not use purple gradient on white
+- Do not insert literal em dashes (\`—\`) or other non-ASCII characters into HTML via PS1 scripts — Windows PowerShell 5.x reads UTF-8 PS1 files as ANSI/CP-1252, corrupting them silently. Always use HTML entities: \`&mdash;\`, \`&rarr;\`, \`&amp;\`
+- Do not use \`var(--token)\` inside SVG attribute values (\`fill=\`, \`stroke=\`) — use hardcoded \`rgba()\` instead
 
 ---
 

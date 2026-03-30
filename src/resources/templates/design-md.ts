@@ -133,6 +133,56 @@ accent top-border: 2px crowe-blue
 
 ---
 
+## Aspect Ratio Enforcement
+
+The deck is locked to 16:9. On screens wider or taller than 16:9 the remaining space fills with the slide background colour (dark navy bars — no stretching).
+
+\`\`\`css
+/* body */
+body { display: flex; align-items: center; justify-content: center; margin: 0; }
+
+/* deck container */
+#deck {
+  width:  min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  position: relative; overflow: hidden; flex-shrink: 0;
+}
+\`\`\`
+
+---
+
+## Numbered List Style
+
+Decorative section numbers (large pnum style): **single digit** — use \`1\`, \`2\`, \`3\`, never \`01\`, \`02\`, \`03\`.
+
+Inline bullet list numbers (replacing circle badges):
+\`\`\`
+plain <div> — no border-radius, no background, no border
+font-size: 22px; font-weight: 700; min-width: 26px; line-height: 1.4
+colour: matches section accent (amber for Discover phase, teal for Build phase)
+\`\`\`
+Text paragraph alongside: \`margin-top: 0\` so first-line baseline aligns with the number.
+
+---
+
+## SVG Colour Rules
+
+- **Never** use CSS custom properties (\`var(--amber)\`) inside SVG attribute values (\`fill=\`, \`stroke=\`). They are silently ignored in SVG attribute context.
+- Use hardcoded \`rgba()\` values in SVG attributes.
+- CSS vars work normally in inline \`style=""\` on HTML elements that wrap or overlay the SVG.
+
+---
+
+## HTML Entity Rules
+
+- Em dash: always \`&mdash;\` — **never** insert a literal \`—\` character.
+- Right arrow: \`&rarr;\` or \`&#x2192;\`
+- Ampersand in HTML attributes / text: \`&amp;\`
+
+Reason: PS1 scripts written as UTF-8 files are read by Windows PowerShell 5.x as ANSI/CP-1252, silently corrupting non-ASCII characters into mojibake (\`â€"\`) that survive undetected into the output HTML.
+
+---
+
 ## Out of Scope for This Deck
 
 - [e.g., "No interactive quiz elements"]

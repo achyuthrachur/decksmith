@@ -151,6 +151,40 @@ import Aurora from '@/components/reactbits/Aurora'
 
 ---
 
+## Pattern 7: SVG Donut Wheel Reveal (GSAP, standalone HTML)
+
+**Best for:** Process / maturity model slides with a circular stage diagram
+**Library:** GSAP 3 (already bundled in standalone decks via CDN)
+
+Mark each segment path with \`class="ds"\` and centre elements with \`class="dc"\`.
+Use \`svgOrigin\` (not \`transformOrigin\`) so GSAP scales from the SVG coordinate centre.
+
+\`\`\`javascript
+// Segment paths: scale up from SVG centre, staggered
+gsap.set('#mySlide .ds', { opacity: 0, scale: 0.65, svgOrigin: '255 242' })
+gsap.to('#mySlide .ds', {
+  opacity: 1, scale: 1, svgOrigin: '255 242',
+  stagger: 0.07, duration: 0.55, ease: 'back.out(1.4)', delay: 0.25,
+})
+
+// Centre text: appear after segments settle
+gsap.fromTo('#mySlide .dc',
+  { opacity: 0, scale: 0.75, svgOrigin: '255 242' },
+  { opacity: 1, scale: 1,    svgOrigin: '255 242',
+    stagger: 0.08, duration: 0.4, ease: 'power2.out', delay: 0.85 })
+
+// Companion list: slide in from left in parallel
+gsap.fromTo('#mySlide .bullet-row',
+  { opacity: 0, x: -14 },
+  { opacity: 1, x: 0, stagger: 0.07, duration: 0.35, ease: 'power2.out', delay: 0.5 })
+\`\`\`
+
+**Segment normalisation rule:** all segments must share the same \`fill\` opacity and \`stroke\` opacity — no fading from "most important" to "least important". Visual hierarchy comes from colour (amber vs teal), not from dimming.
+
+**SVG colour rule:** never use CSS custom properties (\`var(--token)\`) inside SVG attribute values (\`fill=\`, \`stroke=\`). Use hardcoded \`rgba()\` or hex. CSS vars work fine in inline \`style=""\` on HTML elements wrapping the SVG.
+
+---
+
 ## Reduced Motion
 
 Always respect \`prefers-reduced-motion\`:
